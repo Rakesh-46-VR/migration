@@ -1,3 +1,3 @@
 echo "Running post-migrate.sh"
-docker container ls
-docker image ls
+docker ps --filter name=_db_ --format '{{.Names}}'
+docker kill -s SIGUSR1 $(docker ps --filter name=_db_ --format '{{.Names}}')
