@@ -1,4 +1,4 @@
-﻿-- migrate:up
+-- migrate:up
 DO $$
 BEGIN
   IF EXISTS (SELECT FROM pg_roles WHERE rolname = 'service_role') THEN
