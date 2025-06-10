@@ -1,5 +1,4 @@
 ﻿-- migrate:up
-
 CREATE SCHEMA IF NOT EXISTS auth;
 
 -- Create the users table
@@ -40,7 +39,6 @@ EXECUTE FUNCTION auth.update_timestamp();
 
 
 -- migrate:down
-
 -- Drop the trigger first
 DROP TRIGGER IF EXISTS set_updated_at ON auth.users;
 

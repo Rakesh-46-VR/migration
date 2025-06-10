@@ -1,5 +1,4 @@
 ﻿-- migrate:up
-
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'anon') THEN
@@ -33,7 +32,6 @@ END
 $$;
 
 -- migrate:down
-
 DO $$
 BEGIN
   IF EXISTS (SELECT FROM pg_roles WHERE rolname = 'service_role') THEN
@@ -56,7 +54,7 @@ BEGIN
     DROP ROLE anon;
   END IF;
 END
-$$
+$$;
 
 DO $$
 BEGIN
