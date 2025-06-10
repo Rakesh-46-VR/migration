@@ -10,7 +10,6 @@ BEGIN
 END
 $$;
 
--- migrate:up
 DO $$
 BEGIN
   IF EXISTS (SELECT FROM pg_roles WHERE rolname = 'anon' AND rolname = 'authenticated') THEN
@@ -31,7 +30,6 @@ BEGIN
 END
 $$;
 
--- migrate:down
 DO $$
 BEGIN
   IF EXISTS (SELECT FROM pg_roles WHERE rolname = 'anon') THEN
@@ -40,7 +38,6 @@ BEGIN
 END
 $$;
 
--- migrate:down
 DO $$
 BEGIN
   IF EXISTS (SELECT FROM pg_roles WHERE rolname = 'authenticated') THEN
