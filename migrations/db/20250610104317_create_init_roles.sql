@@ -1,17 +1,11 @@
 ﻿-- migrate:up
-DO $$
-BEGIN
-  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'anon') THEN
-    CREATE ROLE anon NOLOGIN;
-  END IF;
-END
-$$;
+CREATE ROLE IF NOT EXISTS anon NOLOGIN;
+CREATE ROLE IF NOT EXISTS authenticated NOLOGIN;
+CREATE ROLE IF NOT EXISTS service_role NOLOGIN;
+CREATE ROLE IF NOT EXISTS supabase_auth_admin LOGIN PASSWORD 'SuperSecureAdminPassword';
 
 -- migrate:down
-DO $$
-BEGIN
-  IF EXISTS (SELECT FROM pg_roles WHERE rolname = 'service_role') THEN
-    DROP ROLE service_role;
-  END IF;
-END
-$$;
+DROP ROLE IF EXISTS service_role;
+DROP ROLE IF EXISTS authenticated;
+DROP ROLE IF EXISTS anon;
+DROP ROLE IF EXISTS supabase_auth_admin;
