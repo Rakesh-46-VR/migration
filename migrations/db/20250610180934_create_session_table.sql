@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS auth.sessions (
 CREATE OR REPLACE FUNCTION auth.insert_session(
     p_user_id UUID,
     p_refresh_token TEXT,
+    p_refresh_token_key TEXT,
     p_expires_at TIMESTAMPTZ
 )
 RETURNS void AS $$
@@ -20,12 +21,12 @@ BEGIN
   WHERE user_id = p_user_id;
 
   -- Insert the new session
-  INSERT INTO auth.sessions (user_id, refresh_token, expires_at)
-  VALUES (p_user_id, p_refresh_token, p_expires_at);
+  INSERT INTO auth.sessions (user_id, refresh_token, refresh_token_key, expires_at)
+  VALUES (p_user_id, p_refresh_token, p_refresh_token_key, p_expires_at);
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 
 -- migrate:down
 DROP TABLE IF EXISTS auth.sessions;
-DROP FUNCTION IF EXISTS auth.insert_session(UUID, TEXT, TIMESTAMPTZ);
+DROP FUNCTION IF EXISTS auth.insert_session(UUID, TEXT, TEXT, TIMESTAMPTZ);
