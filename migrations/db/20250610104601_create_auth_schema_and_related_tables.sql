@@ -20,7 +20,11 @@ GRANT USAGE ON SCHEMA auth TO supabase_auth_admin;
 
 -- Lock down table permissions
 REVOKE ALL ON auth.users FROM PUBLIC;
+
 GRANT SELECT, INSERT, UPDATE, DELETE ON auth.users TO supabase_auth_admin;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA auth
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO supabase_auth_admin;
 
 -- Optional: track updates
 CREATE OR REPLACE FUNCTION auth.update_timestamp()
