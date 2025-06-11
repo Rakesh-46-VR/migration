@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS auth.sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id),
   refresh_token TEXT UNIQUE NOT NULL,
+  refresh_token_key TEXT NOT NULL,
   expires_at TIMESTAMPTZ NOT NULL,
   created_at TIMESTAMPTZ DEFAULT now()
 );
