@@ -26,7 +26,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON auth.users TO supabase_auth_admin;
 ALTER DEFAULT PRIVILEGES IN SCHEMA auth
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO supabase_auth_admin;
 
--- Optional: track updates
+-- Track updates
 CREATE OR REPLACE FUNCTION auth.update_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -41,16 +41,22 @@ FOR EACH ROW
 EXECUTE FUNCTION auth.update_timestamp();
 
 
-
 -- migrate:down
--- Drop the trigger first
+
+-- Drop the trigger
 DROP TRIGGER IF EXISTS set_updated_at ON auth.users;
 
 -- Drop the function
 DROP FUNCTION IF EXISTS auth.update_timestamp();
 
+-- Revoke table privileges granted
+REVOKE SELECT, INSERT, UPDATE, DELETE ON auth.users FROM supabase_auth_admin;
+
 -- Drop the users table
 DROP TABLE IF EXISTS auth.users;
+
+-- Revoke usage on auth schema
+REVOKE USAGE ON SCHEMA auth FROM supabase_auth_admin;
 
 -- Drop the auth schema (only if empty)
 DROP SCHEMA IF EXISTS auth;
