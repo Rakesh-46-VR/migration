@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS auth.users (
   avatar_url TEXT,
   is_verified BOOLEAN DEFAULT FALSE,
   role TEXT NOT NULL DEFAULT 'authenticated',
+  email_confirmed BOOLEAN DEFAULT FALSE,
   last_password_change TIMESTAMP NOT NULL DEFAULT (NOW() AT TIME ZONE 'UTC'),
   created_at TIMESTAMP NOT NULL DEFAULT (NOW() AT TIME ZONE 'UTC'),
   updated_at TIMESTAMP NOT NULL DEFAULT (NOW() AT TIME ZONE 'UTC')
