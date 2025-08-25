@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS auth.sessions (
   ip VARCHAR(255) NULL,
   user_agent TEXT NULL,
   refresh_token TEXT UNIQUE NOT NULL,
+  access_token TEXT UNIQUE NOT NULL,
   refresh_token_expires_at timestamptz NOT NULL DEFAULT now() + interval '30 days',
   access_token_expires_at timestamptz NOT NULL DEFAULT now() + interval '15 minutes',
   updated_at timestamptz NULL,
