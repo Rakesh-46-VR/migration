@@ -16,6 +16,6 @@ $Path = Join-Path "migrations/db" $Filename
 -- migrate:up
 
 -- migrate:down
-"@ | Out-File -Encoding UTF8 $Path
+"@ | Out-File -Encoding ascii $Path
 
 Write-Host "Created $Path"
