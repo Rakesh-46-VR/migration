@@ -1,0 +1,9 @@
+﻿-- migrate:up
+CREATE ROLE cron_user LOGIN PASSWORD 'secret';
+GRANT USAGE ON SCHEMA public TO cron_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO cron_user;
+
+-- migrate:down
+REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA public FROM cron_user;
+REVOKE USAGE ON SCHEMA public FROM cron_user;
+DROP ROLE IF EXISTS cron_user;
